@@ -1,0 +1,22 @@
+<div class="container mt-5 md-4">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Genre</th>
+            <th scope="col">Quantity</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let sach of books">
+            <tr>
+                <th scope="row">{{sach.id}}</th>
+                <td>{{sach.tenSach}}</td>
+                <td>{{sach.giaBan}}</td>
+                <td>{{sach.tenTheLoai}}</td>
+                <td>{{sach.soLuong}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
