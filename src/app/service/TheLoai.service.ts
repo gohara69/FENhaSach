@@ -1,4 +1,4 @@
-import { Sach } from '../model/Sach.model';
+import { Sach } from '../model/sachmodel/Sach.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';

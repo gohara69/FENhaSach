@@ -81,3 +81,12 @@ table.table .form-control.error {
 table.table td .add {
     display: none;
 }
+a{
+    text-decoration: none;
+}
+.card image:hover{
+    cursor: pointer;
+}
+.dollars:before { 
+    content:'$'; 
+}
