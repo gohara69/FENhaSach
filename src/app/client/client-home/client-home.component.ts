@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-import { PageSachForCard } from 'src/app/model/page/PageSachForCard.model';
-import { Sach } from 'src/app/model/sachmodel/Sach.model';
+import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { SachForCard } from 'src/app/model/sachmodel/SachForCard.model';
+import { CartService } from 'src/app/service/Cart.service';
 import { SachService } from 'src/app/service/Sach.service';
 
 
@@ -10,17 +9,32 @@ import { SachService } from 'src/app/service/Sach.service';
   templateUrl: './client-home.component.html',
   styleUrls: ['./client-home.component.scss']
 })
-export class ClientHomeComponent {
+export class ClientHomeComponent implements OnChanges{
   books: Array<SachForCard> = [];
   totalPage = 0;
+  currentPage = 0;
+  @Input() searchText = "";
+  @Input() genreId = 0;
+  @Output() getItemQuantity: EventEmitter<any> = new EventEmitter();
+  itemQuantity = 0;
 
   constructor(
     private sachService : SachService,
   ){
-    this.sachService.getAllBookForCard().subscribe(page =>{
-      this.books = page.content;
-      this.totalPage = page.totalPages;
-    })
+    if(this.searchText == ""){
+      this.sachService.getAllBookForCard().subscribe(page =>{
+        this.books = page.content;
+        this.totalPage = page.totalPages;
+        this.currentPage = page.pageable.pageNumber;
+      });
+    } else {
+      this.sachService.getAllBookForCardSearchTenSach(this.searchText, 1).subscribe(page =>{
+        this.books = page.content;
+        this.totalPage = page.totalPages;
+        this.currentPage = page.pageable.pageNumber;
+      });
+    }
+    this.getItemQuantity.emit(this.itemQuantity);
   }
 
   async ngOnInit(){}
@@ -34,5 +48,51 @@ export class ClientHomeComponent {
       return arr;
     }
     return new Array(0);
+  }
+
+  goToPage(name: string,i: number){
+    if(this.searchText == ""){
+      this.sachService.getAllBookForCard().subscribe(page =>{
+        this.books = page.content;
+        this.totalPage = page.totalPages;
+        this.currentPage = page.pageable.pageNumber;
+      });
+    } else {
+      this.sachService.getAllBookForCardSearchTenSach(this.searchText, 1).subscribe(page =>{
+        this.books = page.content;
+        this.totalPage = page.totalPages;
+        this.currentPage = page.pageable.pageNumber;
+      });
+    }
+  }
+
+  showBooksByGenre(genreId: number,i: number){
+    this.sachService.getAllBookForCardByTheLoaiId(genreId, i).subscribe(page =>{
+      this.books = page.content;
+      this.totalPage = page.totalPages;
+      this.currentPage = page.pageable.pageNumber;
+    });
+  }
+
+  ngOnChanges(change: SimpleChanges){
+    for(let p in change){
+      if(p == 'searchText'){
+        this.goToPage(this.searchText, 1);
+      } else if(p == 'genreId'){
+        this.showBooksByGenre(this.genreId, 1);
+      }
+    }
+  }
+
+  addToCart(book: SachForCard){
+    if(!localStorage.getItem('user')){
+      CartService.addLocalCart(book);
+    }
+    this.updateQuantity();
+    this.getItemQuantity.emit(this.itemQuantity);
+  }
+
+  updateQuantity(){
+    this.itemQuantity = CartService.getCartItemQuantity();
   }
 }

@@ -1,9 +1,14 @@
-import { HttpHeaders } from '@angular/common/http';
+import { Observable, Subject } from "rxjs";
+
 
 export class shareService {
-    public httpOptions = {
-        headers: new HttpHeaders({
-           'Content-Type': 'application/json',
-        }),
-     };
+   private subject = new Subject<any>();
+
+   sendClickEvent(){
+      this.subject.next;
+   }
+
+   getClickEvent(): Observable<any>{
+      return this.subject.asObservable();
+   }
 }

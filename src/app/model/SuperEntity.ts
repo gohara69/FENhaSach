@@ -1,5 +1,5 @@
 export class SuperEntity {
-    public id!: Number;
+    public id!: number;
     public createdBy!: string;
     public createdDate!: Date;
     public modifiedBy!: String;

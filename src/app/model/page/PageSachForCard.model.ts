@@ -10,7 +10,7 @@ export interface PageSachForCard{
         },
         offset: Number,
         pageSize: Number,
-        pageNumber: Number,
+        pageNumber: number,
         paged: boolean,
         unpaged: boolean
       },
