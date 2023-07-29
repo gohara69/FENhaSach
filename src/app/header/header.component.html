@@ -19,10 +19,10 @@
           />
         </form>
 
-        <a href="#" class="mx-3 text-danger position-relative d-inline-block" role="button" aria-expanded="false"> 
+        <a [routerLink]= "['/client-cart']" class="mx-3 text-danger position-relative d-inline-block" role="button" aria-expanded="false"> 
           <img src="https://rails-assets-us.bookshop.org/ds/images/basket.76e8fe7b84404cf9232df8188db62fd33e0c6453.svg" 
             alt="mdo" width="25" height="25" class="rounded-circle">
-          <span class="position-absolute quantity">{{itemQuantity}}</span>
+          <span class="position-absolute quantity" style="font-size: 12px;">{{itemQuantity}}</span>
         </a>
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,9 +40,12 @@
 
       <ul class="nav justify-content-center">
         <li class="nav-item genre-item" *ngFor="let tLoai of theLoais">
-          <a class="nav-link" href="#" (click)="changeGenre(tLoai.id)">{{tLoai.tenTheLoai}}</a>
+          <a class="nav-link" [routerLink]=" ['/client-genre', tLoai.id ]">{{tLoai.tenTheLoai}}</a>
         </li>
       </ul>
     </div>
   </header>
-  <app-client-home [searchText]="searchText" [genreId]="genreId" (getItemQuantity)="getItemQuantity($event)"></app-client-home>
+  <router-outlet></router-outlet>
+  <!--
+     [searchText]="searchText" [genreId]="genreId" (getItemQuantity)="getItemQuantity($event)"
+  -->

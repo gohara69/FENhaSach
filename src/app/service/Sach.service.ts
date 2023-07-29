@@ -27,6 +27,10 @@ export class SachService{
         return this.http.get<PageSachForCard>('http://localhost:8080/api/books?name=' + name + '&page=' + page);
     }
 
+    getAllBookForCardsByPage(page: number): Observable<PageSachForCard> {
+        return this.http.get<PageSachForCard>('http://localhost:8080/api/books?page=' + page);
+    }
+
     getAllBookForCardByTheLoaiId(genreId: number, page: number): Observable<PageSachForCard> {
         return this.http.get<PageSachForCard>('http://localhost:8080/api/books/genre/' + genreId + '?page=' + page);
     }

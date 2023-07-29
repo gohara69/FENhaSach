@@ -29,13 +29,11 @@ export class CartService{
                     cartData[i].quantity++;
                     localStorage.removeItem('cart');
                     localStorage.setItem('cart', JSON.stringify(cartData));
-                    console.log(cartData);
                     return;
                 }
             }
             cartData.push(SachConverter.toSachOnCart(book));
             localStorage.setItem('cart', JSON.stringify(cartData));
-            console.log(cartData);
         }
     }
 
@@ -53,5 +51,59 @@ export class CartService{
             return count;
         }
         return 1;
+    }
+
+    static getSachOnLocalCart(){
+        let cartData: Array<SachOnCart> = [];
+        let localCart = localStorage.getItem('cart');
+        if(!localCart){
+            return null;
+        }
+        cartData = JSON.parse(localCart);
+        return cartData;
+    }
+
+    static removeItem(id: number): void{
+        let cartData: Array<SachOnCart> = [];
+        let localCart = localStorage.getItem('cart');
+        if(!localCart){
+            return;
+        }
+        cartData = JSON.parse(localCart);
+        for(let i = 0 ; i < cartData.length ; i++){
+            if(cartData[i].id == id){
+                cartData.splice(i, 1);
+                localStorage.setItem('cart', JSON.stringify(cartData));
+            }
+        }
+    }
+
+    static updateCartItem(item: SachOnCart){
+        let cartData: Array<SachOnCart> = [];
+        let localCart = localStorage.getItem('cart');
+        if(!localCart){
+            return;
+        }
+        cartData = JSON.parse(localCart);
+        for(let i = 0 ; i < cartData.length ; i++){
+            if(cartData[i].id == item.id){
+                cartData[i].quantity = item.quantity;
+                localStorage.setItem('cart', JSON.stringify(cartData));
+            }
+        }
+    }
+
+    static sumTotal(): number{
+        let cartData: Array<SachOnCart> = [];
+        let localCart = localStorage.getItem('cart');
+        if(!localCart){
+            return 0;
+        }
+        let sum = 0;
+        cartData = JSON.parse(localCart);
+        for(let i = 0 ; i < cartData.length ; i++){
+            sum+= +cartData[i].giaBan * cartData[i].quantity
+        }
+        return sum;
     }
 }

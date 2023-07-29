@@ -1,45 +1,41 @@
-import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SachForCard } from 'src/app/model/sachmodel/SachForCard.model';
 import { CartService } from 'src/app/service/Cart.service';
 import { SachService } from 'src/app/service/Sach.service';
 import { shareService } from 'src/app/service/share';
 
-
 @Component({
-  selector: 'app-client-home',
-  templateUrl: './client-home.component.html',
-  styleUrls: ['./client-home.component.scss']
+  selector: 'app-client-genre',
+  templateUrl: './client-genre.component.html',
+  styleUrls: ['./client-genre.component.scss']
 })
-export class ClientHomeComponent implements OnChanges{
+
+export class ClientGenreComponent{
   books: Array<SachForCard> = [];
   totalPage = 0;
   currentPage = 0;
-  @Input() searchText = "";
-  @Input() genreId = 0;
-  @Output() getItemQuantity: EventEmitter<any> = new EventEmitter();
   itemQuantity = 0;
+  searchText = ""
+  genreId = 1;
 
   constructor(
     private sachService : SachService,
+    private router : ActivatedRoute,
     private shareService : shareService,
   ){
-    if(this.searchText == ""){
-      this.sachService.getAllBookForCardsByPage(1).subscribe(page =>{
-        this.books = page.content;
-        this.totalPage = page.totalPages;
-        this.currentPage = page.pageable.pageNumber;
-      });
-    } else {
-      this.sachService.getAllBookForCardSearchTenSach(this.searchText, 1).subscribe(page =>{
-        this.books = page.content;
-        this.totalPage = page.totalPages;
-        this.currentPage = page.pageable.pageNumber;
-      });
-    }
-    this.getItemQuantity.emit(this.itemQuantity);
+    this.genreId = (Number)(this.router.snapshot.paramMap.get('id')) ?? 1;
+    this.showBooksByGenre(this.genreId, 1);
+    console.log(this.genreId);
   }
 
-  async ngOnInit(){}
+  ngOnInit() {
+    this.router.params.subscribe(params => {
+       let id = +params['id']; 
+       this.showBooksByGenre(id, 1);
+     });
+  }
 
   fakeArray(length: number): Array<number> {
     if (length >= 0) {
@@ -74,16 +70,6 @@ export class ClientHomeComponent implements OnChanges{
       this.totalPage = page.totalPages;
       this.currentPage = page.pageable.pageNumber;
     });
-  }
-
-  ngOnChanges(change: SimpleChanges){
-    for(let p in change){
-      if(p == 'searchText'){
-        this.goToPage(this.searchText, 1);
-      } else if(p == 'genreId'){
-        this.showBooksByGenre(this.genreId, 1);
-      }
-    }
   }
 
   addToCart(book: SachForCard){

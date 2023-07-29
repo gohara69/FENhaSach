@@ -7,12 +7,18 @@ import { ClientHomeComponent } from './client/client-home/client-home.component'
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { FormsModule } from '@angular/forms';
+import { ClientGenreComponent } from './client/client-genre/client-genre.component';
+import { FooterComponent } from './footer/footer.component';
+import { ClientCartComponent } from './client/client-cart/client-cart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ClientHomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    ClientGenreComponent,
+    FooterComponent,
+    ClientCartComponent
   ],
   imports: [
     BrowserModule,

@@ -8,4 +8,10 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'NhaSach';
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.router.navigate(['/client-home']);
+  }
 }
