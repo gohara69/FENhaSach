@@ -27,7 +27,6 @@ export class ClientGenreComponent{
   ){
     this.genreId = (Number)(this.router.snapshot.paramMap.get('id')) ?? 1;
     this.showBooksByGenre(this.genreId, 1);
-    console.log(this.genreId);
   }
 
   ngOnInit() {
@@ -73,9 +72,7 @@ export class ClientGenreComponent{
   }
 
   addToCart(book: SachForCard){
-    if(!localStorage.getItem('user')){
-      CartService.addLocalCart(book);
-    }
+    CartService.addLocalCart(book);
     this.updateQuantity();
     this.shareService.sendNumberData(this.itemQuantity);
   }

@@ -17,3 +17,10 @@
             total[i].innerText = '$' + Math.round(sum * 10)/10;
         }
     }
+
+function clearCartJs(){
+    var total = document.getElementsByClassName('total');
+        for(let i = 0 ; i < total.length ; i++){
+            total[i].innerText = '$' + 0;
+        }
+}

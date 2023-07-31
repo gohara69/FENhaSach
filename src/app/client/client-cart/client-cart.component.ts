@@ -5,6 +5,7 @@ import { CartService } from 'src/app/service/Cart.service';
 import { shareService } from 'src/app/service/share';
 
 declare function subTotal(): any;
+declare function clearCartJs(): any;
 @Component({
   selector: 'app-client-cart',
   templateUrl: './client-cart.component.html',
@@ -12,7 +13,7 @@ declare function subTotal(): any;
 })
 export class ClientCartComponent implements OnInit{
   books: Array<SachOnCart> = [];
-  sumTotal = CartService.sumTotal();
+  sumTotal = +CartService.sumTotal().toFixed(2);
 
   constructor(
     private router : Router,
@@ -20,7 +21,6 @@ export class ClientCartComponent implements OnInit{
     private shareService : shareService,
   ){
     this.books = CartService.getSachOnLocalCart() ?? [];
-    this.sumTotal = CartService.sumTotal();
   }
 
   ngOnInit(): void {
@@ -49,7 +49,12 @@ export class ClientCartComponent implements OnInit{
     }
   }
 
-  getTotal(){
-    return CartService.sumTotal();
+  clearCart(){
+    CartService.removeAll();
+    this.books = CartService.getSachOnLocalCart() ?? [];
+    this.shareService.sendNumberData(CartService.getCartItemQuantity());
+    this.router.navigate(['./'], {
+      relativeTo: this.route,
+    })
   }
 }

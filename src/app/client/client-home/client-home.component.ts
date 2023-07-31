@@ -87,9 +87,7 @@ export class ClientHomeComponent implements OnChanges{
   }
 
   addToCart(book: SachForCard){
-    if(!localStorage.getItem('user')){
-      CartService.addLocalCart(book);
-    }
+    CartService.addLocalCart(book);
     this.updateQuantity();
     this.shareService.sendNumberData(this.itemQuantity);
   }
