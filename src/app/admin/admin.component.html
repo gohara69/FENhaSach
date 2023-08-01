@@ -1,0 +1,33 @@
+<div class="row" style="min-height: 720px;">
+    <!-- Navbar -->
+    <div class="col-2">
+        <div class="bg-primary">
+            <div class="row">
+                <a [routerLink]="['/admin/dashboard']" class="col d-flex align-items-center mb-lg-0 text-dark text-decoration-none">
+                    <img 
+                        src="https://rails-assets-us.bookshop.org/ds/images/logo.041f4577edde0efff6b67907832d4c3dfd52407b.svg" 
+                        alt="Bookshop.org logo" 
+                        class="img-fluid px-2 py-2"
+                    />
+                </a>
+            </div>
+            
+            <hr/>
+
+            <div class="row">
+                <div class="col">
+                    <button class="w-100 btn btn-primary"
+                        [routerLink]="['/admin/receipt']"
+                    >
+                        Receipt
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End navbar -->
+
+    <div class="col-md-10">
+        <router-outlet></router-outlet>
+    </div>
+</div>

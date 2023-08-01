@@ -13,6 +13,7 @@ export class HeaderComponent{
   theLoais: Array<TheLoai> = [];
   searchText = "";
   genreId = 0;
+  isLogin = false;
   itemQuantity = CartService.getCartItemQuantity();
 
   constructor(
@@ -23,15 +24,23 @@ export class HeaderComponent{
     this.theLoaiService.getAllTheLoais().subscribe(tloai =>{
       this.theLoais = tloai;
     });
-    this.shareService.getData().subscribe(x =>
-      this.itemQuantity = x
-    );
+    this.shareService.getData().subscribe(x =>{
+      if(typeof x === 'number'){
+        this.itemQuantity = x
+      } else if(typeof x === 'boolean'){
+        this.isLogin = true;
+      }
+    });
   }
 
   ngOnInit(){
-    this.shareService.getData().subscribe(x =>
-      this.itemQuantity = x
-    );
+    this.shareService.getData().subscribe(x =>{
+        if(typeof x === 'number'){
+          this.itemQuantity = x
+        } else if(typeof x === 'boolean'){
+          this.isLogin = true;
+        }
+    });
   }
 
   initializeSachs(){
@@ -50,5 +59,11 @@ export class HeaderComponent{
 
   getItemQuantity(data: any){
     this.itemQuantity = data;
+  }
+
+  onLoginOut(){
+    localStorage.removeItem('userLogin');
+    this.shareService.sendStatusData(false);
+    this.isLogin = false;
   }
 }

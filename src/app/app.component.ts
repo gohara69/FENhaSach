@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AdminService } from './service/Admin.service';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +9,11 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'NhaSach';
+  isLoginAdmin = AdminService.isLoginAdmin();
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.router.navigate(['/client-home']);
+    this.router.navigate(['/signup']);
   }
 }

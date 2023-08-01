@@ -12,6 +12,13 @@ import { FooterComponent } from './footer/footer.component';
 import { ClientCartComponent } from './client/client-cart/client-cart.component';
 import { ClientCheckoutComponent } from './client/client-checkout/client-checkout.component';
 import { ClientSuccessComponent } from './client-success/client-success.component';
+import { AdminComponent } from './admin/admin.component';
+import { ReceiptComponent } from './admin/receipt/receipt.component';
+import { AdminService } from './service/Admin.service';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { SignupSuccessComponent } from './signup-success/signup-success.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +29,13 @@ import { ClientSuccessComponent } from './client-success/client-success.componen
     FooterComponent,
     ClientCartComponent,
     ClientCheckoutComponent,
-    ClientSuccessComponent
+    ClientSuccessComponent,
+    AdminComponent,
+    ReceiptComponent,
+    DashboardComponent,
+    LoginComponent,
+    SignupComponent,
+    SignupSuccessComponent
   ],
   imports: [
     BrowserModule,

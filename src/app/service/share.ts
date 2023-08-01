@@ -15,6 +15,10 @@ export class shareService {
       this.subject.next(page);
    }
 
+   sendStatusData(status: boolean){
+      this.subject.next(status);
+   }
+
    getData(): Observable<any> {
       return this.subject.asObservable();
    }

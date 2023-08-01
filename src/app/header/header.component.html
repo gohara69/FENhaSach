@@ -18,7 +18,16 @@
             [ngModelOptions]="{standalone: true}"
           />
         </form>
-
+        <a *ngIf="!isLogin" [routerLink]= "['/login']" class="mx-3 position-relative d-inline-block" role="button" aria-expanded="false"> 
+          Login
+        </a>
+        <div 
+          *ngIf="isLogin" 
+          class="text-primary mx-3 position-relative d-inline-block"
+          (click)="onLoginOut()"
+        > 
+          Logout
+        </div>
         <a [routerLink]= "['/client-cart']" class="mx-3 text-danger position-relative d-inline-block" role="button" aria-expanded="false"> 
           <img src="https://rails-assets-us.bookshop.org/ds/images/basket.76e8fe7b84404cf9232df8188db62fd33e0c6453.svg" 
             alt="mdo" width="25" height="25" class="rounded-circle">

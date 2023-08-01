@@ -8,4 +8,5 @@ export class Receipt extends SuperEntity {
     public address!: string;
     public status!: boolean;
     public userid!: number;
+    public total!: number;
 }

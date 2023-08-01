@@ -86,6 +86,7 @@ export class ClientCheckoutComponent {
       receipt.lastname = this.userForm.get('lastname')?.value ?? "";
       receipt.status = true;
       receipt.userid = this.anonymousId;
+      receipt.total = this.sumTotal;
       receipt.ward = this.userForm.get('address')?.value ?? "";
       this.receiptService.createReceipt(receipt).subscribe(receipt =>{
         this.receiptDetailService.createReceiptInLocal(receipt.id);
